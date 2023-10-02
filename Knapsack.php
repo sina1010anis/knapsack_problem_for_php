@@ -1,4 +1,5 @@
 <?php 
+// Dynamic programming
 function my_knapsach($w, $n, $wi, $vi)
 {
     $k = [[]];
@@ -14,8 +15,69 @@ function my_knapsach($w, $n, $wi, $vi)
             }
         }
     }
-    //return $k[$n][$w];
-    return $k;
+    return $k[$n][$w].PHP_EOL;
+
+    // while ($w>0 || $n>0) {
+    //     if ($k[$n][$w] == $k[$n-1][$w]) {
+    //         echo "{$n} ==> Not Seleced".PHP_EOL;
+    //         $n--;
+    //     }else{
+    //         echo "{$n} ==> Seleced".PHP_EOL;
+    //         $w = $w-$wi[$n];
+    //         $n--;
+    //     }
+    // }
 } 
 
-print_r(my_knapsach(50, 3, [10, 20, 30], [60, 100, 120]));
+
+// GA
+
+function my_knapsach_2 ($w, $n, $wi, $vi) {
+    $score = [];
+    $vi_new = [];
+    $total = 0;
+    $ws = $w;
+    //$number = 0;
+    // Get Score
+    for ($i = 0 ; $i <= $n-1 ; $i++) {
+        $vi_new[$i]['score_out'] = $vi[$i] / $wi[$i];
+        // $score[$i]['w'] =$wi[$i];
+        //$vi_new[$i]['id'] = $i;
+        $vi_new[$i]['score'] = $vi[$i];
+        $vi_new[$i]['w'] =$wi[$i];
+    }
+    function sortByOrder($a, $b) {
+        if ($a['score_out'] < $b['score_out']) {
+            return 1;
+        } elseif ($a['score_out'] > $b['score_out']) {
+            return -1;
+        }
+        return 0;
+    }
+    //usort($score, 'sortByOrder', 'score');
+    usort($vi_new, 'sortByOrder');
+
+    
+    for ($i = 0 ; $i < $n ; $i++) {
+        if ($ws == 0) {
+            break;
+        }
+        if ($vi_new[$i]['w'] <= $ws) {
+
+            $total += $vi_new[$i]['score'];
+            $ws -= $vi_new[$i]['w'];
+        } else if ($vi_new[$i]['w'] > $ws) {
+            $total += ((10 - (($vi_new[$i]['score'] * $ws) / $vi_new[$i]['w'])) / 10) * $vi_new[$i]['score'];
+            $ws = 0;
+        }
+
+    }
+    return $total; 
+}
+$w = 15;
+$vi = [ 10, 5, 15, 7, 6, 18, 3];
+$wi = [ 2, 3, 5, 7, 1, 4, 1];
+echo 'GA => '.my_knapsach_2($w, count($vi), $wi, $vi);
+echo PHP_EOL;
+echo 'Dynamic => '. my_knapsach($w, count($vi), $wi, $vi);
+
