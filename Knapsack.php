@@ -1,5 +1,6 @@
 <?php 
 // Dynamic programming
+// با استفاده از فرمول های یک برنامه هوشمند سخته می شود
 function my_knapsach($w, $n, $wi, $vi)
 {
     $k = [[]];
@@ -17,7 +18,7 @@ function my_knapsach($w, $n, $wi, $vi)
     }
     return $k[$n][$w].PHP_EOL;
 
-    // while ($w>0 || $n>0) {
+   // while ($w>0 || $n>0) {
     //     if ($k[$n][$w] == $k[$n-1][$w]) {
     //         echo "{$n} ==> Not Seleced".PHP_EOL;
     //         $n--;
@@ -26,12 +27,12 @@ function my_knapsach($w, $n, $wi, $vi)
     //         $w = $w-$wi[$n];
     //         $n--;
     //     }
-    // }
+    // } 
 } 
 
 
-// GA
-
+// حریصانه (0/1)
+// با استفاده از الگوریتم حریصانه بیشتر امیتاز گرفته میشود و ثبت می وشد 
 function my_knapsach_2 ($w, $n, $wi, $vi) {
     $score = [];
     $vi_new = [];
@@ -41,8 +42,6 @@ function my_knapsach_2 ($w, $n, $wi, $vi) {
     // Get Score
     for ($i = 0 ; $i <= $n-1 ; $i++) {
         $vi_new[$i]['score_out'] = $vi[$i] / $wi[$i];
-        // $score[$i]['w'] =$wi[$i];
-        //$vi_new[$i]['id'] = $i;
         $vi_new[$i]['score'] = $vi[$i];
         $vi_new[$i]['w'] =$wi[$i];
     }
@@ -53,29 +52,32 @@ function my_knapsach_2 ($w, $n, $wi, $vi) {
             return -1;
         }
         return 0;
-    }
-    //usort($score, 'sortByOrder', 'score');
-    usort($vi_new, 'sortByOrder');
+    } usort($vi_new, 'sortByOrder');
 
     
     for ($i = 0 ; $i < $n ; $i++) {
-        if ($ws == 0) {
-            break;
-        }
+        // if ($ws == 0) {
+        //     break;
+        // }  // این شرط برای زمان مناسب است که میتوانیم بخشی از شی رو هم برداریم
         if ($vi_new[$i]['w'] <= $ws) {
 
             $total += $vi_new[$i]['score'];
             $ws -= $vi_new[$i]['w'];
-        } else if ($vi_new[$i]['w'] > $ws) {
-            $total += ((10 - (($vi_new[$i]['score'] * $ws) / $vi_new[$i]['w'])) / 10) * $vi_new[$i]['score'];
-            $ws = 0;
-        }
+        } //else if ($vi_new[$i]['w'] > $ws) {
+        //     $total += ((10 - (($vi_new[$i]['score'] * $ws) / $vi_new[$i]['w'])) / 10) * $vi_new[$i]['score'];
+        //     $ws = 0;
+        // } // این شرط برای زمان مناسب است که میتوانیم بخشی از شی رو هم برداریم
+        else if ($vi_new[$i]['w'] > $ws) {
+            break;
+        } // این شرط برای زمان مناسب است که نمیتوانیم بخشی از شی رو هم برداریم
 
     }
     return $total; 
 }
+
+
 $w = 15;
-$vi = [ 10, 5, 15, 7, 6, 18, 3];
+$vi = [ 10, 5, 15, 7, 6, 18, 3 ];
 $wi = [ 2, 3, 5, 7, 1, 4, 1];
 echo 'GA => '.my_knapsach_2($w, count($vi), $wi, $vi);
 echo PHP_EOL;
