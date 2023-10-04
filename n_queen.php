@@ -5,7 +5,7 @@ class Set
     public $n = 8;
     public $pop = 3000;
     public $ps = [[]];
-    public $mut_over = 0.8;
+    public $mut_over = 0.5;
     public $MHR = 200;
 /**
  * 
@@ -158,23 +158,30 @@ class NQueen extends Set
         if ($this->ps[0][$this->n] == 0) {
             //print_r($this->ps[0]);
             if ($draw) {
-                echo '<style>table, th, td {border:2px solid black;}tr , td {width:200px;height:200px;}</style><table>';
-                for ($i = 0 ; $i <= $this->n-1;$i++) {
-                    echo '<tr>';
-                    for ($j = 0 ; $j <= $this->n-1;$j++) {
-                        if ($j == $this->ps[0][$i]){
-                            echo '<td style="background-color:red"></td>';
-                        }else{
-                            echo '<td></td>';
-                        }
-                    }
-                    echo '</tr>';
-                }
-                echo '</table>';
+                return $this->draw();
             }else{
                 return 'Search Good ...!';
             }
+        } else {
+            $this->pushPop()->crossOver()->matation()->fitness()->getBestRequest(true);
         }
+            
+    }
+    public function draw()
+    {
+        echo '<style>table, th, td {border:2px solid black;}tr , td {width:200px;height:200px;}</style><table>';
+        for ($i = 0 ; $i <= $this->n-1;$i++) {
+            echo '<tr>';
+            for ($j = 0 ; $j <= $this->n-1;$j++) {
+                if ($j == $this->ps[0][$i]){
+                    echo '<td style="background-color:rgb('.rand(0, 255).' '.rand(0, 255).' '.rand(0, 255).')"></td>';
+                }else{
+                    echo '<td></td>';
+                }
+            }
+            echo '</tr>';
+        }
+        echo '</table>';
     }
 }
 
