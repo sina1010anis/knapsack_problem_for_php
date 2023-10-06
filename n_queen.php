@@ -138,8 +138,7 @@ class NQueen extends Set
                     } else if (abs($j - $k) == abs($this->ps[$i][$j]-$this->ps[$i][$k])) {
                         $this->ps[$i][$this->n] += 1;
                     }
-                }
-                
+                }  
             }
         }
         usort($this->ps, function($a, $b)

@@ -9,7 +9,7 @@ class Set
     public $n_tools;
 
     // Env GA
-    public $pop = 4;
+    public $pop = 2500;
     public $mu = 0.5;
     public $MHR = 5;
     public $ps = [[]];
