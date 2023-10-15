@@ -1,4 +1,6 @@
 <?php 
+$time_start = microtime(true); 
+
 $text = 'در این مثال، با استفاده از تابع substr()، بخشی از رشته “Hello World” که شروع آن در جایگاه ششم قرار دارد و پنج حرف آن را شامل می‌شود، انتخاب شده است. در صورتی که مقدار طول را به عنوان پارامتر ورودی به تابع ندهید، تابع substr() تمام حروف باقی‌مانده را به عنوان خروجی برمی‌گرداند.';
 $pattern = 'تابع';
 function rabinKarp($t, $s) : array
@@ -20,3 +22,7 @@ function rabinKarp($t, $s) : array
     return $search;
 }
 print_r(rabinKarp($text, $pattern));
+
+echo "\n------------------------------------------";
+echo "\n Total execution time in seconds: " . (microtime(true) - $time_start).PHP_EOL;
+echo "------------------------------------------\n\n";
