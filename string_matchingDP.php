@@ -8,7 +8,6 @@ function stringMatchingDP($ref, $str)
 
     for ($i = 0 ; $i <= strlen($str)-1 ; $i++) {
         for ($j = 0 ; $j <= strlen($ref) - 1 ; $j++) {
-            //echo $ref[$j] . PHP_EOL;
 
             if ($str[$i] == '0' and $ref[$j] == '0') {
                 $v[$i][$j] = 0;
@@ -24,8 +23,9 @@ function stringMatchingDP($ref, $str)
         }
     }
 
-    echo $v[strlen($str)-1][strlen($ref)-1];
+    //return $v;
+    return $v[strlen($str)-1][strlen($ref)-1];
 }
 $ref = 'abbc';
 $str = 'cabac';
-return stringMatchingDP($ref, $str);
+echo (stringMatchingDP($ref, $str));
