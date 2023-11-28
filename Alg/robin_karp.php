@@ -6,8 +6,6 @@ function search($pat, $txt, $q)
 { 
     $M = strlen($pat); 
     $N = strlen($txt); 
-    $i = 0;
-    $j = 0; 
     $p = 0; 
             
     $t = 0; 
@@ -42,12 +40,10 @@ function search($pat, $txt, $q)
 
         if ($i < $N - $M) 
         { 
-            $t = ($d * ($t - $txt[$i] *  
-                        $h) + $txt[$i +  
-                             $M]) % $q; 
+            $t = ($d * ($t - $txt[$i] * $h) + $txt[$i + $M]) % $q; 
 
             if ($t < 0) 
-            $t = ($t + $q); 
+                $t = ($t + $q); 
         } 
     } 
 } 

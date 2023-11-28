@@ -38,10 +38,18 @@ class X2
     }
 }
 
-$x1 = new X1();
-$x2 = new X2();
+// $x1 = new X1();
+// $x2 = new X2();
 
-$x2->setInc();
-$x1->setInc();
+// $x2->setInc();
+// $x1->setInc();
 
-$x2->next($x1);
+// $x2->next($x1);
+require './Exceptions/TestException.php';
+$email = "someone@example.com";
+
+try {
+    throw new \TestException();
+} catch (TestException $e) {
+  echo $e->errorMessage();
+}

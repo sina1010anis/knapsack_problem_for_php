@@ -16,8 +16,6 @@ function automaton($p, $a)
             $v[$i][$j] = [$s => $f];
         }
     }
-    echo '<pre>';
-    print_r($v);
-    echo '</pre>';
+    return $v;
 }
-return automaton($p_s, $a_s);
+print_r(automaton($p_s, $a_s));
